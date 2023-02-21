@@ -1,0 +1,20 @@
+# Gradle caches
+.gradle
+build
+*/.gradle/**
+*/build/**
+
+# Working directory for game run within IDE
+*/run-client
+*/run-server
+*/run-data
+
+# Eclipse
+.classpath
+.eclipse
+
+# IntelliJ IDEA
+.idea
+
+# VSCode
+.vscode
