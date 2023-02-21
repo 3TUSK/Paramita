@@ -39,5 +39,5 @@ Special thanks to all developers behind these projects:
 - [Williewillus, Hubry, Alwinfy. "Maintaining Botania for Forge and Fabric — Multiloader Experience Report", BlanketCon 22.][ref-1]
 - [Darkhax, Jared. "MultiLoader Madness", BlanketCon 22.][ref-2]
 
-[ref-1]: (https://www.youtube.com/watch?v=EZ-Lvtx6Wyk&list=PLC1qq1Hb0u1GI8919iCClzb_Bku-DrL4L&index=11)
-[ref-2]: (https://www.youtube.com/watch?v=Ec8AoD29lrw&list=PLC1qq1Hb0u1GI8919iCClzb_Bku-DrL4L&index=17)
+[ref-1]: https://www.youtube.com/watch?v=EZ-Lvtx6Wyk&list=PLC1qq1Hb0u1GI8919iCClzb_Bku-DrL4L&index=11
+[ref-2]: https://www.youtube.com/watch?v=Ec8AoD29lrw&list=PLC1qq1Hb0u1GI8919iCClzb_Bku-DrL4L&index=17
