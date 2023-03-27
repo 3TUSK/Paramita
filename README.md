@@ -42,9 +42,11 @@ Depends on your actual need. You probably want the latest version (as of today, 
 Nevertheless, here are a few things to consider: 
 
   - Maintaining too many loader+version combinations can make you burn out *very fast*. You have been warned.
-  - If you are on/want 1.19.*, you will need both `1.19.2` and `1.19.3` subprojects if:
-    - You have new items
-    - You have anything to do with `BakedModel`
+  - If you are on/want 1.19.*, you will need all of `1.19.2`, `1.19.3` and `1.19.4` subprojects if:
+    - You have new items (due to creative tabs changes between `1.19.2` and `1.19.3`)
+    - You have anything to do with `BakedModel` (due to various changes between `1.19.2` and `1.19.3`)
+    - You have direct reference to `ItemTransforms.TransformType` (`ItemDisplayContext` succeeds it in `1.19.4`)
+    - *to be continued*
   - If you are on/want 1.18.*, you will need both `1.18.1` and `1.18.2` subprojects if:
     - You have anything to do with world generation
   - *To be continued*
