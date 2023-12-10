@@ -1,6 +1,6 @@
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
+plugins {
+    id 'com.modrinth.minotaur' version '2.+' apply false
+}
 
 interface PlatformInfoExtension {
     // Which platform (i.e. Fabric/Forge/Quilt) is this implementation is on?
@@ -8,18 +8,23 @@ interface PlatformInfoExtension {
     Property<String> getPlatform();
     // Which Minecraft version is this implementation based on?
     Property<String> getMinecraftVersion();
+    // Which Minecraft version is this implementation compatible with?
+    ListProperty<String> getSupportedMinecraftVersions();
 }
+
+def mainVersion = '1.0.0'
 
 subprojects { Project p ->
     apply plugin: 'java'
+    apply plugin: 'com.modrinth.minotaur' // https://stackoverflow.com/a/50153617
 
     p.extensions.create('platformInfo', PlatformInfoExtension)
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
 
-    p.archivesBaseName = "ExampleMod"
-    p.version = "1.0.0"
+    p.archivesBaseName = "ExampleMultiProjectMod"
+    p.version = mainVersion
 
     p.repositories {
         // Enable maven central for all subprojects
@@ -55,7 +60,11 @@ subprojects { Project p ->
             }
         }
 
-        if (pAfter.extensions.findByName('loom')) {
+        def projectExt = pAfter.extensions.platformInfo as PlatformInfoExtension
+
+        def useLoom = pAfter.extensions.findByName('loom')
+
+        if (useLoom) {
             pAfter.loom {
                 // Uncomment this if you have Mixin configurations
                 // mixin {
@@ -67,8 +76,20 @@ subprojects { Project p ->
             }
         }
 
-        def projectExt = pAfter.extensions.platformInfo as PlatformInfoExtension
         pAfter.archivesBaseName += "-${projectExt.platform.get()}-${projectExt.minecraftVersion.get()}"
+
+        if ("Vanilla" != projectExt.platform.get()) {
+            pAfter.modrinth {
+                token = System.getenv("MODRINTH_TOKEN")
+                projectId = System.getenv("MODRINTH_PROJECT_ID")
+                loaders = [ projectExt.platform.get().toLowerCase(Locale.ROOT) ]
+                gameVersions = projectExt.supportedMinecraftVersions.getOrElse([])
+                uploadFile = useLoom ? pAfter.remapJar : pAfter.jar
+                versionNumber = mainVersion
+                versionType = 'release' // alpha | beta | release
+                // TODO Declare Dependency
+            }
+        }
 
         pAfter.jar {
             manifest.attributes([
@@ -77,8 +98,7 @@ subprojects { Project p ->
                     "Specification-Version": "1.0",
                     "Implementation-Title": "${pAfter.archivesBaseName}",
                     "Implementation-Version": "${pAfter.version}",
-                    "Implementation-Vendor": "Whoever actually writes the mod",
-                    "Implementation-Timestamp": DateTimeFormatter.ISO_INSTANT.format(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                    "Implementation-Vendor": "Whoever actually writes the mod"
             ])
         }
     }
