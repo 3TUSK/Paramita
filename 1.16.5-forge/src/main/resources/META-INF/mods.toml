@@ -5,7 +5,7 @@ issueTrackerURL="https://example.invalid/"
 
 [[mods]]
 modId="test_multi_project_mod_please_ignore"
-version="${file.jarVersion}"
+version="${version}"
 displayName="Test Multi-Project Mod Please Ignore"
 description="Test multi-project mod"
 authors="3TUSK"
