@@ -33,6 +33,9 @@ subprojects { Project p ->
         maven {
             name = 'SpongePowered'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
+            content {
+                includeGroup 'org.spongepowered'
+            }
         }
     }
 
