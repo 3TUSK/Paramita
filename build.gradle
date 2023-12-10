@@ -89,6 +89,11 @@ subprojects { Project p ->
                 versionType = 'release' // alpha | beta | release
                 // TODO Declare Dependency
             }
+        } else {
+            // Disable modrinth task for base projects
+            pAfter.tasks.named("modrinth") {
+                enabled = false
+            }
         }
 
         pAfter.jar {
