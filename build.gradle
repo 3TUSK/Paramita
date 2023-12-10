@@ -15,7 +15,7 @@ interface PlatformInfoExtension {
     ListProperty<String> getSupportedMinecraftVersions();
 }
 
-def mainVersion = '1.0.1'
+def mainVersion = '1.0.2'
 
 subprojects { Project p ->
     apply plugin: 'java'
@@ -111,6 +111,7 @@ subprojects { Project p ->
                     mainFile.addGameVersion(it)
                 }
                 mainFile.releaseType = 'release'
+                mainFile.changelog = 'Bug fixes'
             }
             // TODO Declare Dependency
         }
