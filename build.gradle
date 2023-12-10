@@ -1,5 +1,8 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
     id 'com.modrinth.minotaur' version '2.+' apply false
+    id 'net.darkhax.curseforgegradle' version '1.1.17' apply false
 }
 
 interface PlatformInfoExtension {
@@ -17,6 +20,7 @@ def mainVersion = '1.0.0'
 subprojects { Project p ->
     apply plugin: 'java'
     apply plugin: 'com.modrinth.minotaur' // https://stackoverflow.com/a/50153617
+    apply plugin: 'net.darkhax.curseforgegradle'
 
     p.extensions.create('platformInfo', PlatformInfoExtension)
 
@@ -96,6 +100,19 @@ subprojects { Project p ->
             pAfter.tasks.named("modrinth") {
                 enabled = false
             }
+        } else {
+            pAfter.tasks.register('curseforge', TaskPublishCurseForge) {
+                disableVersionDetection()
+                apiToken = System.getenv("CURSEFORGE_TOKEN")
+                def projectId = System.getenv("CURSEFORGE_PROJECT_ID")
+                def mainFile = upload(projectId, useLoom ? pAfter.remapJar : pAfter.jar)
+                mainFile.addModLoader(projectExt.platform.get())
+                projectExt.supportedMinecraftVersions.getOrElse([]).each {
+                    mainFile.addGameVersion(it)
+                }
+                mainFile.releaseType = 'release'
+            }
+            // TODO Declare Dependency
         }
 
         pAfter.jar {
