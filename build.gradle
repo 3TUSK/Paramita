@@ -78,18 +78,17 @@ subprojects { Project p ->
 
         pAfter.archivesBaseName += "-${projectExt.platform.get()}-${projectExt.minecraftVersion.get()}"
 
-        if ("Vanilla" != projectExt.platform.get()) {
-            pAfter.modrinth {
-                token = System.getenv("MODRINTH_TOKEN")
-                projectId = System.getenv("MODRINTH_PROJECT_ID")
-                loaders = [ projectExt.platform.get().toLowerCase(Locale.ROOT) ]
-                gameVersions = projectExt.supportedMinecraftVersions.getOrElse([])
-                uploadFile = useLoom ? pAfter.remapJar : pAfter.jar
-                versionNumber = mainVersion
-                versionType = 'release' // alpha | beta | release
-                // TODO Declare Dependency
-            }
-        } else {
+        pAfter.modrinth {
+            token = System.getenv("MODRINTH_TOKEN")
+            projectId = System.getenv("MODRINTH_PROJECT_ID")
+            loaders = [ projectExt.platform.get().toLowerCase(Locale.ROOT) ]
+            gameVersions = projectExt.supportedMinecraftVersions.getOrElse([])
+            uploadFile = useLoom ? pAfter.remapJar : pAfter.jar
+            versionNumber = mainVersion
+            versionType = 'release' // alpha | beta | release
+            // TODO Declare Dependency
+        }
+        if ("Vanilla" == projectExt.platform.get()) {
             // Disable modrinth task for base projects
             pAfter.tasks.named("modrinth") {
                 enabled = false
