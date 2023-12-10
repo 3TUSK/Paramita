@@ -47,4 +47,3 @@ jobs:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
         run: ./gradlew :${{ matrix.project }}:build :${{ matrix.project }}:modrinth
-        continue-on-error: true
