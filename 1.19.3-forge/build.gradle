@@ -9,6 +9,7 @@ plugins {
 platformInfo {
     minecraftVersion = '1.19.3'
     platform = 'Forge'
+    supportedMinecraftVersions = [ '1.19.3' ]
 }
 
 mixin {

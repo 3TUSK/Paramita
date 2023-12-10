@@ -12,6 +12,7 @@ plugins {
 platformInfo {
     minecraftVersion = '1.19.3'
     platform = 'Quilt'
+    supportedMinecraftVersions = [ '1.19.3' ]
 }
 
 loom {

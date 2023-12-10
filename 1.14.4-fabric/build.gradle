@@ -6,6 +6,7 @@ plugins {
 platformInfo {
     minecraftVersion = '1.14.4'
     platform = 'Fabric'
+    supportedMinecraftVersions = [ '1.14', '1.14.1', '1.14.2', '1.14.3', '1.14.4' ]
 }
 
 loom {

@@ -6,6 +6,7 @@ plugins {
 platformInfo {
     minecraftVersion = '1.17.1'
     platform = 'Vanilla'
+    supportedMinecraftVersions = [ '1.17', '1.17.1' ]
 }
 
 minecraft {
